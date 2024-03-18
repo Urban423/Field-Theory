@@ -150,9 +150,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ManifestWindows.res" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="App\App.vcxproj">
       <Project>{03b4ff95-094b-45a9-a9db-b124ee67874e}</Project>
     </ProjectReference>
@@ -165,6 +162,9 @@
     <ProjectReference Include="Math\Math.vcxproj">
       <Project>{f4e6119f-0f1c-4cdd-a817-1ca8e21e62af}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ManifestWindows.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
