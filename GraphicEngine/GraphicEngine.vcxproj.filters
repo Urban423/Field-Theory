@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GraphicEngine">
+      <UniqueIdentifier>{af03a5bb-41b3-47d2-b6cd-c55db6127d16}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GraphicEngine.h">
+      <Filter>GraphicEngine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GraphicEngine.cpp">
+      <Filter>GraphicEngine</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

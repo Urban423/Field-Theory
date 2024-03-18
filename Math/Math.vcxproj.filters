@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ArithmeticTree">
+      <UniqueIdentifier>{99240a5b-2b79-4fa9-a67b-5b89b42fb545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StringAdvanced">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Rect">
+      <UniqueIdentifier>{ee20cdaa-3f5f-47e4-95c7-c10c34842bec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StringAdvanced.h">
+      <Filter>StringAdvanced</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="ArithmeticTree.h">
+      <Filter>ArithmeticTree</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="StringAdvanced.cpp">
+      <Filter>StringAdvanced</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="ArithmeticTree.cpp">
+      <Filter>ArithmeticTree</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

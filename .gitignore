@@ -1,0 +1,6 @@
+bin
+build
+Release
+x64
+Debug
+.vs
