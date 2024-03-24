@@ -25,6 +25,11 @@ ArithmeticTree::~ArithmeticTree()
 	
 }
 
+void ArithmeticTree::simplificate()
+{
+	simplification(&root);
+}
+
 void ArithmeticTree::setValue(char valueName, double value)
 {
 	values[valueName] = value;
@@ -40,6 +45,10 @@ double ArithmeticTree::calculate()
 
 double ArithmeticTree::calculation(Node* node)
 {
+	if (node == nullptr)
+	{
+		return 0;
+	}
 	//if node is one of the last ones
 	if(node->right == nullptr)
 	{
@@ -71,6 +80,14 @@ double ArithmeticTree::calculation(Node* node)
 		{
 			return pow(a, b);
 		}
+		case(LN):
+		{
+			if (b <= 0)
+			{
+				b = 1;
+			}
+			return log(b);
+		}
 	}
 	return a + b;
 }
@@ -98,7 +115,7 @@ void ArithmeticTree::mathCreateTree(Node* node, char* str, int start, int end)
 	{
 		//skip some arithmetic '()'
 		if(str[i] == '(') {
-			i = findNextParenthesis(str, i + 1);
+			i = findNextParenthesis(str, i);
 		}
 		
 		unsigned char priority  = getOperatorPriority(str[i]);
@@ -127,7 +144,7 @@ void ArithmeticTree::mathCreateTree(Node* node, char* str, int start, int end)
 		{
 			return;
 		}
-		if(checkLetter(str[start]) == true)
+		if(checkLetter(str[start]) == 1)
 		{
 			node->parametr = PARAMETR;
 			node->value = str[start];
@@ -146,13 +163,251 @@ void ArithmeticTree::mathCreateTree(Node* node, char* str, int start, int end)
 	node->right->depth 	= node->depth + 1;
 	
 	
-	for (int i = start; i < min_priority_index - 1; i++)
-	{
-
-	}
-	
 	
 	
 	mathCreateTree(node->left,  str, start, min_priority_index - 1);
 	mathCreateTree(node->right, str, min_priority_index + 1, end  );
+}
+
+void ArithmeticTree::simplification(Node* node)
+{
+	if (node == nullptr || node->left == nullptr) { return; }
+	simplification(node->left);
+	simplification(node->right);
+
+	//if()
+}
+
+std::string ArithmeticTree::toString()
+{
+	return nodeToString(&root);
+}
+
+std::string ArithmeticTree::nodeToString(Node* node)
+{
+	if (node == nullptr)
+	{
+		return "";
+	}
+	//if node is one of the last ones
+	if (node->right == nullptr)
+	{
+		if (node->parametr == PARAMETR)
+		{
+			return std::string(1, node->value);
+		}
+		return std::to_string(node->value);
+	}
+
+	std::string strLeft  = nodeToString(node->left);
+	std::string strRight = nodeToString(node->right);
+
+	char oper = (char)node->value;
+	if (oper == LN)
+	{
+		oper = 'l';
+	}
+	return '(' + strLeft + ')' + oper + '(' + strRight + ')';
+}
+
+ArithmeticTree ArithmeticTree::differentiation(char parametrName)
+{
+	ArithmeticTree tree;
+	Node* newRoot = rootDifferentiation(&root, parametrName, 0);
+	tree.root = *newRoot;
+	if (newRoot != nullptr)
+	{
+		delete newRoot;
+	}
+	tree.simplificate();
+	return tree;
+}
+
+Node* ArithmeticTree::rootDifferentiation(Node* node, char parametrName, int depth)
+{
+	Node* newNode = new Node();
+	newNode->depth = depth;
+	newNode->left = nullptr;
+	newNode->right = nullptr;
+
+	if (node->right == nullptr)
+	{
+		newNode->parametr = NUMBER;
+		if (node->parametr == PARAMETR)
+		{
+			newNode->value = static_cast<char>(node->value) == parametrName ? 1 : 0;
+			return newNode;
+		}
+		newNode->value = 0;
+		return newNode;
+	}
+
+	printf("operator\n");
+	switch (static_cast<char>(node->value))
+	{
+		case('+'): { }
+		case('-'):
+		{
+			newNode->value = node->value;
+			newNode->parametr = node->parametr;
+			newNode->left  = rootDifferentiation(node->left,  parametrName, depth + 1);
+			newNode->right = rootDifferentiation(node->right, parametrName, depth + 1);
+			return newNode;
+		}
+		case('*'): 
+		{
+			newNode->value = '+';
+			newNode->parametr = OPERATOR;
+
+			//left
+			newNode->left = new Node();
+			newNode->left->depth = depth + 1;
+			newNode->left->parametr = OPERATOR;
+			newNode->left->value = '*';
+			newNode->left->left  = rootDifferentiation(node->left, parametrName, depth + 2);
+			newNode->left->right = copyNode(node->right, depth + 2);
+
+			//right
+			newNode->right = new Node();
+			newNode->right->depth = depth + 1;
+			newNode->right->parametr = OPERATOR;
+			newNode->right->value = '*';
+			newNode->right->left  = copyNode(node->right, depth + 2);
+			newNode->right->right = rootDifferentiation(node->right, parametrName, depth + 2);
+			return newNode;
+		}
+		case('/'):
+		{
+			newNode->value = '-';
+			newNode->parametr = OPERATOR;
+
+			//left
+			newNode->left = new Node();
+			newNode->left->depth = depth + 1;
+			newNode->left->parametr = OPERATOR;
+			newNode->left->value = '/';
+			newNode->left->left = rootDifferentiation(node->left, parametrName, depth + 2);
+			newNode->left->right = copyNode(node->right, depth + 2);
+
+			//right
+			newNode->right = new Node();
+			newNode->right->depth = depth + 1;
+			newNode->right->parametr = OPERATOR;
+			newNode->right->value = '/';
+
+			//right -> left
+			newNode->right->left = new Node();
+			newNode->right->left->depth = depth + 2;
+			newNode->right->left->parametr = OPERATOR;
+			newNode->right->left->value = '*';
+
+			newNode->right->left->left = copyNode(node->left, depth + 3);
+			newNode->right->left->right = rootDifferentiation(node->right, parametrName, depth + 3);
+
+
+			//right -> right
+			newNode->right->right = new Node();
+			newNode->right->right->depth = depth + 2;
+			newNode->right->right->parametr = OPERATOR;
+			newNode->right->right->value = '^';
+
+			newNode->right->right->left = copyNode(node->right, depth + 3);
+			newNode->right->right->right = new Node();
+			newNode->right->right->right->parametr = NUMBER;
+			newNode->right->right->right->depth = depth + 3;
+			newNode->right->right->right->value = 2;
+			return newNode;
+
+		}
+		case('^'):
+		{
+			newNode->value = '+';
+			newNode->parametr = OPERATOR;
+
+			newNode->left = new Node();
+			newNode->left->depth = depth + 1;
+			newNode->left->value = '*';
+			newNode->left->parametr = OPERATOR;
+
+			newNode->left->left = new Node();
+			newNode->left->left->depth = depth + 2;
+			newNode->left->left->value = '^';
+			newNode->left->left->parametr = OPERATOR;
+			newNode->left->left->left  = copyNode(node->left,  depth + 3);
+			newNode->left->left->right = copyNode(node->right, depth + 3);
+
+
+			newNode->left->right = new Node();
+			newNode->left->right->depth = depth + 2;
+			newNode->left->right->value = '*';
+			newNode->left->right->parametr = OPERATOR;
+			newNode->left->right->left = rootDifferentiation(node->right, parametrName, depth + 3);
+
+
+			newNode->left->right->right = new Node();
+			newNode->left->right->right->depth = depth + 3;
+			newNode->left->right->right->value = LN;
+			newNode->left->right->right->parametr = OPERATOR;
+			newNode->left->right->right->right = copyNode(node->left, depth + 4);
+
+
+			newNode->right = new Node();
+			newNode->right->depth = depth + 1;
+			newNode->right->value = '*';
+			newNode->right->parametr = OPERATOR;
+
+
+
+			newNode->right->left = new Node();
+			newNode->right->left->depth = depth + 2;
+			newNode->right->left->value = '^';
+			newNode->right->left->parametr = OPERATOR;
+			newNode->right->left->left = copyNode(node->left, depth + 3);
+
+			newNode->right->left->right = new Node();
+			newNode->right->left->right->depth = depth + 3;
+			newNode->right->left->right->value = '-';
+			newNode->right->left->right->parametr = OPERATOR;
+			newNode->right->left->right->left = copyNode(node->right, depth + 4);
+
+
+			newNode->right->left->right->right = new Node();
+			newNode->right->left->right->right->depth = depth + 4;
+			newNode->right->left->right->right->value = 1;
+			newNode->right->left->right->right->parametr = NUMBER;
+
+
+			newNode->right->right = new Node();
+			newNode->right->right->depth = depth + 2;
+			newNode->right->right->value = '*';
+			newNode->right->right->parametr = OPERATOR;
+			newNode->right->right->left  = rootDifferentiation(node->left, parametrName, depth + 3);
+			newNode->right->right->right = copyNode(node->right, depth + 3);
+			return newNode;
+
+		}
+		default:
+			break;
+	}
+	
+
+
+	return newNode;
+}
+
+
+Node* ArithmeticTree::copyNode(Node* node, int startDepth)
+{
+	if (node == nullptr)
+	{
+		return nullptr;
+	}
+
+	Node* newNode = new Node();
+	newNode->value = node->value;
+	newNode->depth = startDepth;
+	newNode->parametr = node->parametr;
+	newNode->left  = copyNode(node->left,  startDepth + 1);
+	newNode->right = copyNode(node->right, startDepth + 1);
+	return newNode;
 }

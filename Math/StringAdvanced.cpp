@@ -107,8 +107,7 @@ unsigned char getOperatorPriority(char character)
 
 int findNextParenthesis(char* str, int start)
 {
-	int depth = 1;
-	start++;
+	int depth = 0;
 	while(1) {
 		if(str[start] == '(') { depth++; }
 		else if(str[start] == ')') { depth--; if(depth == 0) { return start; } }

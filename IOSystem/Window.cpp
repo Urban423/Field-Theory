@@ -175,6 +175,14 @@ Rect Window::getCenter()
 
 Rect Window::getInnerSize()
 {
+	RECT rc;
+	GetClientRect(_hwnd, &rc);
+	width = rc.right - rc.left;
+	height = rc.bottom - rc.top;
+	left = rc.left;
+	top = rc.top;
+	centerX = left + width / 2;
+	centerY = top + height / 2;
 	return Rect(left, top, width, height);
 }
 

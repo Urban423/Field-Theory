@@ -19,22 +19,25 @@ void App::onCreate()
 	
 
 	//logic
-	std::string input = "-(a + b) + (-(a)^2)";
+	std::string input = "a^3";
 
 	ArithmeticTree math(input);
 	math.setValue('a', 3);
 	math.setValue('b', 2);
 	math.setValue('c', 3);
 	math.setValue('x', 4);
-	double ans = math.calculate();
+	ArithmeticTree diff = math.differentiation('a');
+	math.setValue('a', 3);
 
-	printf("%s = %f\n", input.c_str(), ans);
+	printf("%s = %f\n", math.toString().c_str(), math.calculate());
+	printf("%s = %f\n", diff.toString().c_str(), diff.calculate());
 
 
 	
 	//graphicEngine
-	int* image = new int[640 * 320];
-	for (int i = 0; i < 640 * 320; i++)
+	Rect r = Window::getInnerSize();
+	int* image = new int[r.width * r.height];
+	for (int i = 0; i < r.width * r.height; i++)
 	{
 		//           AA RR GG BB
 		image[i] = 0x00'00'FF'00;
