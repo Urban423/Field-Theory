@@ -33,7 +33,9 @@ void App::onCreate()
 	printf("%s = %f\n", diff.toString().c_str(), diff.calculate());
 
 
-	
+
+	Window::init("Window", 640, 320, false);
+
 	//graphicEngine
 	Rect r = Window::getInnerSize();
 	int* image = new int[r.width * r.height];
@@ -44,7 +46,6 @@ void App::onCreate()
 	}
 	
 	//window
-	Window::init("Window", 640, 320, false);
 	Window::setBuffer(image);
 }
 

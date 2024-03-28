@@ -11,6 +11,12 @@
     <Filter Include="Rect">
       <UniqueIdentifier>{ee20cdaa-3f5f-47e4-95c7-c10c34842bec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Matrix4x4">
+      <UniqueIdentifier>{630cc8db-d5f9-4f98-be78-8d67ba14ee21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vector4">
+      <UniqueIdentifier>{d2aa0fff-ce7c-4fab-883d-97f8f5303a3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringAdvanced.h">
@@ -22,6 +28,12 @@
     <ClInclude Include="ArithmeticTree.h">
       <Filter>ArithmeticTree</Filter>
     </ClInclude>
+    <ClInclude Include="Vector4.h">
+      <Filter>Vector4</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>Matrix4x4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StringAdvanced.cpp">
@@ -32,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="ArithmeticTree.cpp">
       <Filter>ArithmeticTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4.cpp">
+      <Filter>Vector4</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>Matrix4x4</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

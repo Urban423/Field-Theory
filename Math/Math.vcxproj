@@ -141,13 +141,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ArithmeticTree.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="StringAdvanced.h" />
+    <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArithmeticTree.cpp" />
+    <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="StringAdvanced.cpp" />
+    <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
