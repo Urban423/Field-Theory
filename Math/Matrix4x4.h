@@ -1,5 +1,4 @@
 #pragma once
-#include "Vector3.h"
 
 class Matrix4x4
 {
@@ -11,18 +10,14 @@ public:
 	float getDeterminant();
 	void inverse();
 	
-	void setScale(const Vector3& scale);
-	void setTranslation(const Vector3& translation);
+	void setScale(const float x, const float y, const float z);
+	void setTranslation(const float x, const float y, const float z);
 	void setRotationX(const float x);
 	void setRotationY(const float y);
 	void setRotationZ(const float z);
 
 	void setOrthoLH(float width, float height, float nearPlane, float farPlane);
-	void setPerspectiveFovLH(float fov, float aspect, float nearPlane, float farPlane);
-	
-	Vector3 getXDirection();
-	Vector3 getYDirection();
-	Vector3 getZDirection();
+	void setPerspectiveFovLH(float fov, float aspect, float nearPlane, float farPlane);\
 
 	float* getPtr();
 public:

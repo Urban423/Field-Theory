@@ -51,5 +51,17 @@
     <ClCompile Include="Matrix4x4.cpp">
       <Filter>Matrix4x4</Filter>
     </ClCompile>
+    <ClCompile Include="ArithmeticTreeToString.cpp">
+      <Filter>ArithmeticTree</Filter>
+    </ClCompile>
+    <ClCompile Include="ArithmeticTreeStringParser.cpp">
+      <Filter>ArithmeticTree</Filter>
+    </ClCompile>
+    <ClCompile Include="ArithmeticTreeDifferentiation.cpp">
+      <Filter>ArithmeticTree</Filter>
+    </ClCompile>
+    <ClCompile Include="ArithmeticTreeSimplification.cpp">
+      <Filter>ArithmeticTree</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

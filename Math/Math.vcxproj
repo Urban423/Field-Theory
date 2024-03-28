@@ -148,6 +148,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArithmeticTree.cpp" />
+    <ClCompile Include="ArithmeticTreeDifferentiation.cpp" />
+    <ClCompile Include="ArithmeticTreeSimplification.cpp" />
+    <ClCompile Include="ArithmeticTreeStringParser.cpp" />
+    <ClCompile Include="ArithmeticTreeToString.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="StringAdvanced.cpp" />

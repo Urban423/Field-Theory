@@ -76,19 +76,19 @@ void Matrix4x4::inverse()
 }
 
 
-void Matrix4x4::setScale(const Vector3& scale)
+void Matrix4x4::setScale(const float x, const float y, const float z)
 {
-	mat[0][0] = scale.x;
-	mat[1][1] = scale.y;
-	mat[2][2] = scale.z;
+	mat[0][0] = x;
+	mat[1][1] = y;
+	mat[2][2] = z;
 }
 
 
-void Matrix4x4::setTranslation(const Vector3& translation)
+void Matrix4x4::setTranslation(const float x, const float y, const float z)
 {
-	mat[3][0] = translation.x;
-	mat[3][1] = translation.y;
-	mat[3][2] = translation.z;
+	mat[3][0] = x;
+	mat[3][1] = y;
+	mat[3][2] = z;
 }
 
 void Matrix4x4::setRotationX(const float x)
@@ -164,19 +164,4 @@ void Matrix4x4::setPerspectiveFovLH(
 	mat[3][2] = (2 * nearPlane * farPlane) / (nearPlane - farPlane);
 	mat[2][3] = -1;
 	mat[3][3] = 0;
-}
-
-Vector3 Matrix4x4::getXDirection()
-{
-	return Vector3(mat[0][0], mat[0][1], mat[0][2]);
-}
-
-Vector3 Matrix4x4::getYDirection()
-{
-	return Vector3(mat[1][0], mat[1][1], mat[1][2]);
-}
-
-Vector3 Matrix4x4::getZDirection()
-{
-	return Vector3(mat[2][0], mat[2][1], mat[2][2]);
 }
